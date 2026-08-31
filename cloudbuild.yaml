@@ -1,0 +1,48 @@
+substitutions:
+  _REGION: europe-west1
+  _REPOSITORY: demos
+  _SERVICE: grant-scout
+  _SERVICE_ACCOUNT: grant-scout-runtime@${PROJECT_ID}.iam.gserviceaccount.com
+
+steps:
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --tag
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+      - .
+
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE}
+      - --image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+      - --project=${PROJECT_ID}
+      - --region=${_REGION}
+      - --platform=managed
+      - --allow-unauthenticated
+      - --service-account=${_SERVICE_ACCOUNT}
+      - --min-instances=0
+      - --max-instances=1
+      - --concurrency=8
+      - --cpu=1
+      - --memory=512Mi
+      - --timeout=60
+      - --set-secrets=ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,OPENAI_API_KEY=OPENAI_API_KEY:latest
+      - --set-env-vars=ANTHROPIC_MODEL=claude-haiku-4-5,EMBEDDING_MODEL=text-embedding-3-small,RATE_LIMIT_REQUESTS=8,RATE_LIMIT_WINDOW_MS=60000,DAILY_REQUEST_LIMIT=250
+
+images:
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+
+options:
+  logging: CLOUD_LOGGING_ONLY

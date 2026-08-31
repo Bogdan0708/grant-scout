@@ -1,0 +1,107 @@
+[
+  {
+    "id": "romanian-govtech-sme",
+    "prompt": "We are a Romanian SME with a working AI assistant for municipalities. Which EU programmes look plausible for a deployment pilot? We have no consortium yet.",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["DEP-AI-DATA", "ERDF-INNOVATION", "EUI-INNOVATIVE-ACTIONS", "HE-CL2-DEMOCRACY"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "deeptech-startup",
+    "prompt": "A Romanian deep-tech startup has a TRL 6 industrial AI product and wants single-company commercialisation funding. What is the strongest match?",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["EIC-ACC-OPEN", "EIC-ACC-CHALLENGES"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "climate-city",
+    "prompt": "Find options for a Spanish city testing heatwave adaptation and neighbourhood resilience. Cite the official records and be honest about deadlines.",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["LIFE-CLIMATE", "HE-EU-MISSIONS", "EUI-INNOVATIVE-ACTIONS"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "uk-horizon-university",
+    "prompt": "Can a UK university with EU partners pursue collaborative AI research through this snapshot?",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["HE-CL4-DIGITAL", "MSCA-DN"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "regional-policy",
+    "prompt": "A Portuguese regional authority wants to exchange govtech procurement practices with peers in four countries. What fits?",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["INTERREG-EUROPE", "HE-CL2-DEMOCRACY"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "film-distribution",
+    "prompt": "We are a French independent film SME looking for cross-border audiovisual distribution support.",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["CREATIVE-MEDIA"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "health-data",
+    "prompt": "A Belgian nonprofit and hospital partners want to pilot interoperable public-health data services. Which programme in the snapshot should they inspect?",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["EU4HEALTH", "DEP-AI-DATA"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "transport-infrastructure",
+    "prompt": "Which record covers a cross-border rail infrastructure project led by public authorities?",
+    "expectedTools": ["searchCalls"],
+    "expectedAnyCallIds": ["CEF-TRANSPORT"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "net-zero-factory",
+    "prompt": "A German manufacturer wants to demonstrate a first-of-a-kind low-carbon production line. Find the most relevant instrument.",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["INNOVATION-FUND", "LIFE-CLIMATE"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "advanced-ai-skills",
+    "prompt": "A university-business consortium in Poland wants to build an applied AI masters and reskilling programme.",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["DEP-SKILLS", "ERASMUS-ALLIANCES", "ERASMUS-COOP"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "circular-sme",
+    "prompt": "A Dutch SME is piloting a reusable packaging process that reduces industrial waste. What should it investigate?",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["LIFE-CIRCULAR", "ERDF-INNOVATION"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "postdoc-mobility",
+    "prompt": "I am a postdoctoral researcher seeking an individual mobility fellowship with a university host in Italy.",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["MSCA-PF"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "sme-international-rd",
+    "prompt": "Two innovative SMEs in Romania and Spain want market-oriented R&D funding for a product they plan to launch in two years.",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["EUROSTARS", "HE-CL4-DIGITAL"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "single-applicant-pathfinder",
+    "prompt": "Can a Romanian SME with no partners apply alone to EIC Pathfinder Open?",
+    "expectedTools": ["searchCalls", "checkEligibility"],
+    "expectedAnyCallIds": ["EIC-PATH-OPEN"],
+    "expectNoMatch": false
+  },
+  {
+    "id": "no-match-consumer",
+    "prompt": "Find me an EU grant in this snapshot to buy a personal holiday home in Canada.",
+    "expectedTools": ["searchCalls"],
+    "expectedAnyCallIds": [],
+    "expectNoMatch": true
+  }
+]

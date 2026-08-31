@@ -1,0 +1,60 @@
+name: Behavioral evals
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: grant-scout-evals-main
+  cancel-in-progress: true
+
+jobs:
+  evaluate:
+    if: github.event_name == 'push' && github.event.repository.fork == false && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      EVAL_MIN_SCORE: "0.75"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Check for provider keys
+        id: keys
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ] || [ -z "$OPENAI_API_KEY" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::ANTHROPIC_API_KEY / OPENAI_API_KEY not configured — skipping behavioral evals."
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.keys.outputs.present == 'true'
+        run: npm ci
+      - if: steps.keys.outputs.present == 'true'
+        run: npm run eval -- --write-readme
+      - uses: actions/upload-artifact@v4
+        if: steps.keys.outputs.present == 'true'
+        with:
+          name: grant-scout-eval-results
+          path: evals/results/latest.json
+          if-no-files-found: warn
+      - name: Commit score table
+        if: success() && steps.keys.outputs.present == 'true'
+        run: |
+          if git diff --quiet -- README.md; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: refresh eval scores [skip ci]"
+          git push

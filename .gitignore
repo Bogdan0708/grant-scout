@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+coverage/
+.env
+.env.local
+.env.*.local
+*.log
+tsconfig.tsbuildinfo
+.DS_Store
+.vercel/
+evals/results/*.json
+!evals/results/.gitkeep
