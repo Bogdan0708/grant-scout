@@ -18,6 +18,16 @@ question
    └── Claude Haiku 4.5 ── cited synthesis ◀────────┘
 ```
 
+```mermaid
+flowchart LR
+    Q[Question] --> S[searchCalls: OpenAI embedding + cosine top-k]
+    Q --> E[checkEligibility: deterministic rules]
+    S --> V[(Committed vectors.json / calls.json)]
+    E --> V
+    V --> C[Claude Haiku 4.5: cited synthesis]
+    C --> A[Answer with source cards]
+```
+
 - `searchCalls` embeds the question with `text-embedding-3-small`, then searches `data/vectors.json` in memory. There is no vector database.
 - `checkEligibility` evaluates applicant type, geography, and consortium setup as code. It returns `likely`, `unclear`, or `unlikely` with individual checks.
 - The system prompt forbids funding facts before retrieval and forbids citations to records that were not retrieved.
@@ -74,6 +84,8 @@ npm run embed       # rebuild committed vectors after editing data/calls.json
 npm run eval        # live 15-case behavioral evaluation
 npm run eval -- --write-readme
 ```
+
+Tests: `npm test` (11 unit tests) · `npm run eval` (15-case behavioural eval, historical 97.5% on 2026-08-30; not run in CI without provider keys)
 
 ## Evaluation method
 
