@@ -1,0 +1,778 @@
+{
+  "timestamp": "2026-09-13T10:46:18.758Z",
+  "commit": "8fd08a1d3fa4f42416b93f1b2a7e5c10edc0c79b",
+  "workingTreeDirty": false,
+  "corpusSha256": "783bbe27d40cb207a18e3e46dc492cd6bb570ce5478ef5adb59e0a0e57b1dc7c",
+  "vectorsSha256": "8e5e3a6c5755459b9d4df3719ae3cf9a42c5dd24a902d24e0a67331e45d8683e",
+  "casesSha256": "57cb9714d16d27bf0a726d839aa9b70acf290a696ceb2caa8ca8dc9bc3ae24ca",
+  "models": {
+    "generator": "claude-haiku-4-5",
+    "judge": "claude-haiku-4-5",
+    "embeddings": "text-embedding-3-small"
+  },
+  "costUsd": null,
+  "costNote": "Usage is recorded per case; provider billing and embedding usage are not fully captured, so total cost is not claimed.",
+  "overall": 0.9793333333333333,
+  "results": [
+    {
+      "id": "romanian-govtech-sme",
+      "score": 0.985,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 0.95,
+      "note": "All four funding programme claims are directly supported by evidence; co-funding rates and consortium requirements are accurately cited; the single minor weakness is that the answer states Digital Europe 'usually requires a consortium' without explicit evidence of this requirement in the supplied source material, though this is a reasonable inference and appropriately caveated.",
+      "answer": "## Best-fit opportunities for your Romanian SME\n\n**1. ERDF — Innovation and Digital Transition [source:ERDF-INNOVATION]**  \nThis is your strongest lead. ERDF funds regional innovation and SME digitisation through national and regional programmes. As a Romanian SME, you'd apply through Romania's managing authority for your region. The pre-screen shows you're likely eligible, and consortium requirements vary by specific call—so solo applications may be possible. **Key caveat:** deadlines and budgets are set regionally; you'll need to check the specific Romanian ERDF call for your sector.\n\n**2. Digital Europe — AI and Data [source:DEP-AI-DATA]**  \nDirectly aligned with your AI solution. This programme funds deployment-oriented AI adoption and typically offers 50–100% co-funding. However, it usually requires a consortium, which you don't have yet. **Recommendation:** if you can partner with a public authority (e.g., a municipality pilot partner) or a research organisation, this becomes viable and highly relevant.\n\n**3. Digital Europe — European Digital Innovation Hubs [source:DEP-EDIH]**  \nEDIHs provide test-before-invest services for SMEs adopting digital tech. Romania likely has designated EDIHs. This could be a lower-barrier entry point to validate your solution with municipalities before pursuing larger grants. Consortium requirements are typical here too.\n\n**4. Horizon Europe Cluster 2 — Democracy & Governance [source:HE-CL2-DEMOCRACY]**  \nFunds public-sector innovation and digital governance. Typically requires a consortium and is more research-oriented, but worth monitoring if you can partner with a research organisation or municipality.\n\n## Next steps\n- **Verify ERDF calls:** Contact Romania's regional development authority for current calls and deadlines.\n- **Consider partnerships:** For Digital Europe opportunities, identify a municipality or research partner to strengthen your application.\n- **Check EDIH:** Explore whether a Romanian EDIH can support a pilot before you commit to a full grant application.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility",
+        "checkEligibility",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "ERDF-INNOVATION",
+        "DEP-EDIH",
+        "DEP-AI-DATA",
+        "HE-CL2-DEMOCRACY"
+      ],
+      "citationIds": [
+        "ERDF-INNOVATION",
+        "DEP-AI-DATA",
+        "DEP-EDIH",
+        "HE-CL2-DEMOCRACY"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 16390,
+      "generationUsage": {
+        "inputTokens": 7504,
+        "inputTokenDetails": {
+          "noCacheTokens": 7504,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 904,
+        "outputTokenDetails": {},
+        "totalTokens": 8408
+      },
+      "judgeUsage": {
+        "inputTokens": 1149,
+        "inputTokenDetails": {
+          "noCacheTokens": 1149,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 92,
+        "outputTokenDetails": {},
+        "totalTokens": 1241
+      }
+    },
+    {
+      "id": "deeptech-startup",
+      "score": 0.985,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 0.95,
+      "note": "All factual funding claims about EIC Accelerator Open are directly supported by evidence (single-company eligibility, deep-tech/AI focus, TRL 6, grant up to €2.5m, 70% co-funding, Romania eligibility); caveats appropriately acknowledge continuous deadlines and need for official verification.",
+      "answer": "**Strongest match: EIC Accelerator Open** [source:EIC-ACC-OPEN]\n\nThis is the best fit for a Romanian deep-tech startup seeking single-company commercialisation funding:\n\n- **Single-company eligible**: No consortium required [source:EIC-ACC-OPEN]\n- **Deep-tech & AI focus**: Explicitly supports \"commercialise deep tech\" and \"artificial intelligence\" [source:EIC-ACC-OPEN]\n- **TRL 6 stage**: Designed for startups scaling breakthrough innovations toward market [source:EIC-ACC-OPEN]\n- **Grant + equity option**: Grant component up to €2.5m, with possible EIC equity co-investment [source:EIC-ACC-OPEN]\n- **Co-funding**: Grant typically covers up to 70% of eligible innovation costs [source:EIC-ACC-OPEN]\n- **Romania eligible**: Pre-screen shows \"likely\" for a Romanian startup [source:EIC-ACC-OPEN]\n\n**Key caveats:**\n- The application is continuously open with varying full-application cut-offs—verify current deadlines on the official EIC portal\n- This is a pre-screen; the official call document controls final eligibility\n- Confirm that your product's TRL 6 maturity and commercialisation readiness align with EIC Accelerator's expectations\n\n**Next step:** Check the current EIC Accelerator work programme and application portal for the latest call conditions and submission deadlines.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "HE-CL4-DIGITAL",
+        "EIC-PATH-CHALLENGES",
+        "EIC-PATH-OPEN",
+        "EIC-ACC-OPEN",
+        "DEP-AI-DATA"
+      ],
+      "citationIds": [
+        "EIC-ACC-OPEN",
+        "EIC-ACC-OPEN",
+        "EIC-ACC-OPEN",
+        "EIC-ACC-OPEN",
+        "EIC-ACC-OPEN",
+        "EIC-ACC-OPEN",
+        "EIC-ACC-OPEN"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 8445,
+      "generationUsage": {
+        "inputTokens": 7465,
+        "inputTokenDetails": {
+          "noCacheTokens": 7465,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 623,
+        "outputTokenDetails": {},
+        "totalTokens": 8088
+      },
+      "judgeUsage": {
+        "inputTokens": 1196,
+        "inputTokenDetails": {
+          "noCacheTokens": 1196,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 98,
+        "outputTokenDetails": {},
+        "totalTokens": 1294
+      }
+    },
+    {
+      "id": "climate-city",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims (co-funding rates, budget variability, eligibility, consortium requirements, deadline types) are directly supported by evidence, and appropriate caveats are included for unspecified dates and call details.",
+      "answer": "## Best options for a Spanish city on heatwave adaptation and neighbourhood resilience:\n\n### 1. **LIFE — Climate Change Mitigation and Adaptation** [source:LIFE-CLIMATE]\n**Pre-screen: Likely eligible** for a Spanish public authority.\n\nThis programme directly supports climate adaptation and resilience solutions, including neighbourhood-scale projects. It accepts public authorities and does not require partners. Co-funding is commonly up to 60%.\n\n**Deadline caveat:** This is an annual call programme. The snapshot records an \"Annual LIFE call; project budget varies\" and notes \"verify the current call package.\" No specific 2026 deadline is recorded here—you must check the official CINEA LIFE portal for the current call opening and closing dates.\n\n---\n\n### 2. **European Urban Initiative — Innovative Actions** [source:EUI-INNOVATIVE-ACTIONS]\n**Pre-screen: Likely eligible** for a Spanish public authority.\n\nDesigned specifically for urban authorities testing bold, transferable solutions to city challenges. This is a strong fit for neighbourhood resilience pilots. No consortium required.\n\n**Deadline caveat:** \"Periodic calls; verify the current EUI call.\" No specific deadline is recorded in this snapshot. You must contact the European Urban Initiative directly or check their call calendar for the next application window.\n\n---\n\n### 3. **Horizon Europe — EU Missions** [source:HE-EU-MISSIONS]\n**Pre-screen: Unclear** on consortium requirement.\n\nThe EU Missions include climate adaptation and climate-neutral cities topics that could cover heatwave resilience. However, these calls usually require a consortium. A Spanish city could lead or partner, but verify the specific mission topic conditions.\n\n**Deadline caveat:** \"Mission call-specific; verify current topics.\" No deadline is recorded here. Mission topics and deadlines vary; check the Horizon Europe funding portal for active climate adaptation or cities missions.\n\n---\n\n## Honest summary on deadlines:\n- **No fixed deadlines are recorded in this snapshot** for any of these three options.\n- All three are recurring or periodic programmes where you must verify the current call package on the official source.\n- Start with LIFE-CLIMATE and EUI-INNOVATIVE-ACTIONS (both pre-screen as likely eligible and don't require partners) and confirm their 2026 call timelines directly with CINEA and the European Urban Initiative.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility",
+        "checkEligibility",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "LIFE-CLIMATE",
+        "HE-EU-MISSIONS",
+        "EUI-INNOVATIVE-ACTIONS",
+        "LIFE-CET"
+      ],
+      "citationIds": [
+        "LIFE-CLIMATE",
+        "EUI-INNOVATIVE-ACTIONS",
+        "HE-EU-MISSIONS"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 13203,
+      "generationUsage": {
+        "inputTokens": 7329,
+        "inputTokenDetails": {
+          "noCacheTokens": 7329,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 959,
+        "outputTokenDetails": {},
+        "totalTokens": 8288
+      },
+      "judgeUsage": {
+        "inputTokens": 1186,
+        "inputTokenDetails": {
+          "noCacheTokens": 1186,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 71,
+        "outputTokenDetails": {},
+        "totalTokens": 1257
+      }
+    },
+    {
+      "id": "uk-horizon-university",
+      "score": 0.985,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 0.95,
+      "note": "All factual funding claims are supported by evidence: Horizon Europe Cluster 4 covers trustworthy AI/data, lists universities as eligible, specifies 70–100% co-funding, and notes UK eligibility varies by topic; the answer appropriately caveats uncertainty about UK participation and directs verification to official sources.",
+      "answer": "## Summary\n\n**Horizon Europe Cluster 4** [source:HE-CL4-DIGITAL] is the strongest match for collaborative AI research. It covers trustworthy AI, data, and advanced computing, and explicitly lists universities as eligible applicants. The programme typically requires consortia and offers 70–100% co-funding.\n\n**However, UK eligibility is unclear.** The pre-screen shows that while universities are eligible applicant types, the UK's participation status in Horizon Europe varies by call and topic. The record notes that \"applicants are generally established in EU Member States or countries associated to Horizon Europe; each topic can narrow eligibility\" [source:HE-CL4-DIGITAL].\n\n**What to verify:**\n- Check the specific Horizon Europe Cluster 4 topic you're interested in to confirm whether the UK is eligible as a participant or only as a third country (which may limit funding or role).\n- Confirm whether your EU partners meet the consortium composition rules for that topic.\n- Review the official call document on the Funding & Tenders Portal.\n\n**Alternative:** If UK participation is restricted, [source:DEP-AI-DATA] (Digital Europe — AI and Data) may offer deployment-focused opportunities, though it also depends on Digital Europe association rules for the UK.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "HE-CL4-DIGITAL",
+        "DEP-AI-DATA",
+        "ERASMUS-ALLIANCES",
+        "DEP-SKILLS"
+      ],
+      "citationIds": [
+        "HE-CL4-DIGITAL",
+        "HE-CL4-DIGITAL",
+        "DEP-AI-DATA"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 9870,
+      "generationUsage": {
+        "inputTokens": 6806,
+        "inputTokenDetails": {
+          "noCacheTokens": 6806,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 514,
+        "outputTokenDetails": {},
+        "totalTokens": 7320
+      },
+      "judgeUsage": {
+        "inputTokens": 951,
+        "inputTokenDetails": {
+          "noCacheTokens": 951,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 97,
+        "outputTokenDetails": {},
+        "totalTokens": 1048
+      }
+    },
+    {
+      "id": "regional-policy",
+      "score": 0.985,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 0.95,
+      "note": "All factual claims about Interreg Europe (purpose, eligibility, consortium requirement, call structure) are supported by evidence; the answer appropriately caveats unverifiable details (partner country eligibility, current call status, specific budgets) and includes a secondary option with proper sourcing.",
+      "answer": "**Best fit: Interreg Europe** [source:INTERREG-EUROPE]\n\nThis programme is designed exactly for your use case. It supports **interregional cooperation projects that help public authorities improve regional-development policies by exchanging and transferring practices across Europe** [source:INTERREG-EUROPE]. A Portuguese regional authority with partners from four other countries fits the consortium model.\n\n**Pre-screen result:** A Portuguese public authority appears **likely eligible** [source:INTERREG-EUROPE], provided the partner countries are within the Interreg Europe programme geography and the current call is open.\n\n**Key points to verify:**\n- **Partner countries:** Confirm all four peer countries are eligible under the current Interreg Europe call (programme countries vary by call round).\n- **Consortium requirement:** Partners are required [source:INTERREG-EUROPE].\n- **Budget and co-financing:** Call-specific; depends on partner country composition [source:INTERREG-EUROPE].\n- **Deadline:** Periodic calls; check the current call status at [interregeurope.eu](https://www.interregeurope.eu).\n\n**Secondary option:** If the focus is on digital government services, the **European Urban Initiative — Innovative Actions** [source:EUI-INNOVATIVE-ACTIONS] also supports govtech solutions, though it targets urban authorities specifically.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "INTERREG-EUROPE",
+        "ERDF-INNOVATION",
+        "DEP-EDIH",
+        "EUI-INNOVATIVE-ACTIONS"
+      ],
+      "citationIds": [
+        "INTERREG-EUROPE",
+        "INTERREG-EUROPE",
+        "INTERREG-EUROPE",
+        "INTERREG-EUROPE",
+        "INTERREG-EUROPE",
+        "EUI-INNOVATIVE-ACTIONS"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 8699,
+      "generationUsage": {
+        "inputTokens": 6672,
+        "inputTokenDetails": {
+          "noCacheTokens": 6672,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 529,
+        "outputTokenDetails": {},
+        "totalTokens": 7201
+      },
+      "judgeUsage": {
+        "inputTokens": 979,
+        "inputTokenDetails": {
+          "noCacheTokens": 979,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 89,
+        "outputTokenDetails": {},
+        "totalTokens": 1068
+      }
+    },
+    {
+      "id": "film-distribution",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims (Creative Europe MEDIA supports development, distribution, innovation and cross-border collaboration; accepts SMEs; France is eligible; runs annual action-specific calls; requires track-record and consortium verification) are directly supported by the CREATIVE-MEDIA evidence provided.",
+      "answer": "## Best match for your profile\n\n**Creative Europe — MEDIA** [source:CREATIVE-MEDIA] is the primary fit. It explicitly supports **development, distribution, innovation and cross-border collaboration in Europe's film, television and audiovisual sectors**, and accepts SMEs as applicants. France is an EU Member State and eligible to participate.\n\n### Pre-screen result\nYour profile as a French SME appears **likely eligible** [source:CREATIVE-MEDIA], but consortium requirements vary by specific action within the programme. Some distribution actions may require partners; others may not. You'll need to check the current call text to confirm whether your project structure (solo or with partners) fits the chosen action.\n\n### Key next steps\n1. **Verify the current call**: Creative Europe MEDIA runs annual action-specific calls [source:CREATIVE-MEDIA]. Visit the [official Creative Europe MEDIA page](https://culture.ec.europa.eu/creative-europe/creative-europe-media-strand) to find the open call for distribution support.\n2. **Check track-record rules**: Applicants must meet action-specific track-record requirements [source:CREATIVE-MEDIA].\n3. **Confirm consortium rules**: Determine whether your distribution project needs partners or can proceed independently.\n\n### Secondary option\nIf you're also interested in **digital tools or platforms** for distribution, the **European Digital Innovation Hubs** [source:DEP-EDIH] network may offer test-before-invest services for SMEs, though this is typically a support service rather than direct project funding.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "CREATIVE-MEDIA",
+        "EUROSTARS",
+        "ERDF-INNOVATION",
+        "DEP-EDIH"
+      ],
+      "citationIds": [
+        "CREATIVE-MEDIA",
+        "CREATIVE-MEDIA",
+        "CREATIVE-MEDIA",
+        "CREATIVE-MEDIA",
+        "DEP-EDIH"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 9026,
+      "generationUsage": {
+        "inputTokens": 6763,
+        "inputTokenDetails": {
+          "noCacheTokens": 6763,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 600,
+        "outputTokenDetails": {},
+        "totalTokens": 7363
+      },
+      "judgeUsage": {
+        "inputTokens": 1008,
+        "inputTokenDetails": {
+          "noCacheTokens": 1008,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 83,
+        "outputTokenDetails": {},
+        "totalTokens": 1091
+      }
+    },
+    {
+      "id": "health-data",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims (EU4Health funds health-sector initiatives, explicitly lists nonprofits as eligible, consortium/deadline/budget are action-specific, Belgium is an EU Member State, Digital Europe is deployment-focused) are directly supported by the evidence, and appropriate caveats about verification are included.",
+      "answer": "**Recommendation:**\n\nThe Belgian nonprofit and hospital partners should inspect **EU4Health** [source:EU4HEALTH]. This programme funds health-sector initiatives including digital health and public-health improvements, and explicitly lists nonprofits among eligible applicant types [source:EU4HEALTH].\n\n**Key points to verify:**\n- **Consortium:** EU4Health's consortium requirements vary by specific action, so the partners should check the annual work programme to confirm whether their hospital partnership is required, preferred, or optional [source:EU4HEALTH].\n- **Deadline & budget:** Both are action-specific within the annual work programme; you'll need to identify the relevant call for interoperable public-health data services [source:EU4HEALTH].\n- **Geography:** Belgium is an EU Member State, so the nonprofit is likely eligible, but the specific call conditions control [source:EU4HEALTH].\n\nAs a secondary option, **Digital Europe — Artificial Intelligence and Data** [source:DEP-AI-DATA] may also be relevant if the pilot emphasizes data-space architecture or AI-driven interoperability, though it is deployment-focused rather than health-specific.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "EU4HEALTH",
+        "DEP-EDIH",
+        "HE-CL2-DEMOCRACY",
+        "DEP-AI-DATA"
+      ],
+      "citationIds": [
+        "EU4HEALTH",
+        "EU4HEALTH",
+        "EU4HEALTH",
+        "EU4HEALTH",
+        "EU4HEALTH",
+        "DEP-AI-DATA"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 7850,
+      "generationUsage": {
+        "inputTokens": 6787,
+        "inputTokenDetails": {
+          "noCacheTokens": 6787,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 472,
+        "outputTokenDetails": {},
+        "totalTokens": 7259
+      },
+      "judgeUsage": {
+        "inputTokens": 914,
+        "inputTokenDetails": {
+          "noCacheTokens": 914,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 89,
+        "outputTokenDetails": {},
+        "totalTokens": 1003
+      }
+    },
+    {
+      "id": "transport-infrastructure",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims about CEF-TRANSPORT (eligible applicants, scope, geography, and call-specific deadlines/budgets) are directly supported by the evidence, and the answer appropriately caveats that specific details require verification on the CINEA website.",
+      "answer": "The best match is **[source:CEF-TRANSPORT]** — the Connecting Europe Facility (Transport). This programme explicitly funds \"sustainable, safe and connected trans-European transport infrastructure, including alternative-fuel and cross-border projects\" and lists public authorities as an eligible applicant type. It is designed to complete TEN-T (trans-European transport networks) and improve cross-border links.\n\nKey points:\n- **Applicant types**: Public authorities, large enterprises, SMEs, and research organisations [source:CEF-TRANSPORT]\n- **Scope**: Cross-border and sustainable transport infrastructure [source:CEF-TRANSPORT]\n- **Geography**: Programme countries, though Member State agreement may be required depending on the TEN-T or transport call [source:CEF-TRANSPORT]\n- **Deadlines & budgets**: Call-specific; you will need to verify current CEF Transport calls on the CINEA website [source:CEF-TRANSPORT]\n\nTo proceed, check the official CINEA CEF Transport page for active calls and detailed eligibility rules for your specific cross-border rail project.",
+      "toolNames": [
+        "searchCalls"
+      ],
+      "retrievedIds": [
+        "CEF-TRANSPORT",
+        "INTERREG-EUROPE",
+        "EUI-INNOVATIVE-ACTIONS",
+        "ERDF-INNOVATION"
+      ],
+      "citationIds": [
+        "CEF-TRANSPORT",
+        "CEF-TRANSPORT",
+        "CEF-TRANSPORT",
+        "CEF-TRANSPORT",
+        "CEF-TRANSPORT"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 5552,
+      "generationUsage": {
+        "inputTokens": 3837,
+        "inputTokenDetails": {
+          "noCacheTokens": 3837,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 323,
+        "outputTokenDetails": {},
+        "totalTokens": 4160
+      },
+      "judgeUsage": {
+        "inputTokens": 910,
+        "inputTokenDetails": {
+          "noCacheTokens": 910,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 82,
+        "outputTokenDetails": {},
+        "totalTokens": 992
+      }
+    },
+    {
+      "id": "net-zero-factory",
+      "score": 0.75,
+      "tools": false,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims about the EU Innovation Fund (eligible applicants, up to 60% funding, scope, and periodic deadlines) are directly supported by the evidence, and appropriate caveats about country eligibility and call-specific conditions are included.",
+      "answer": "The most relevant instrument is the **EU Innovation Fund** [source:INNOVATION-FUND]. It is specifically designed to support commercial demonstration of innovative low-carbon technologies and industrial decarbonisation, which directly matches the manufacturer's need to demonstrate a first-of-a-kind low-carbon production line.\n\n**Key features:**\n- **Eligible applicants:** Large enterprises, SMEs, startups, and public authorities [source:INNOVATION-FUND]\n- **Funding:** May fund up to 60% of relevant costs under standard calls [source:INNOVATION-FUND]\n- **Scope:** Supports decarbonisation of industry and demonstration of net-zero technology [source:INNOVATION-FUND]\n- **Deadlines:** Periodic net-zero technology calls and auctions [source:INNOVATION-FUND]\n\n**What to verify:**\n- Confirm Germany is eligible under the current call (the programme operates in eligible countries with sector and maturity conditions that vary by call)\n- Check the specific call timeline and sector eligibility for manufacturing/production lines\n- Review co-funding requirements and eligible cost categories on the official European Commission Innovation Fund page",
+      "toolNames": [
+        "searchCalls"
+      ],
+      "retrievedIds": [
+        "INNOVATION-FUND",
+        "LIFE-CIRCULAR"
+      ],
+      "citationIds": [
+        "INNOVATION-FUND",
+        "INNOVATION-FUND",
+        "INNOVATION-FUND",
+        "INNOVATION-FUND",
+        "INNOVATION-FUND"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 5753,
+      "generationUsage": {
+        "inputTokens": 3371,
+        "inputTokenDetails": {
+          "noCacheTokens": 3371,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 335,
+        "outputTokenDetails": {},
+        "totalTokens": 3706
+      },
+      "judgeUsage": {
+        "inputTokens": 630,
+        "inputTokenDetails": {
+          "noCacheTokens": 630,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 78,
+        "outputTokenDetails": {},
+        "totalTokens": 708
+      }
+    },
+    {
+      "id": "advanced-ai-skills",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims (programme names, eligibility, consortium requirements, funding types, deadline structures) are directly supported by evidence, and appropriate caveats about verification are included.",
+      "answer": "## Best matches for your AI masters and reskilling programme\n\n**1. Erasmus+ Alliances for Innovation** [source:ERASMUS-ALLIANCES]  \nThis is the strongest fit. It explicitly supports large partnerships between education providers and businesses to close skills gaps and design future-facing curricula. The consortium is required, and universities and businesses are both eligible applicant types. Poland is eligible. The funding is a lump-sum grant with duration-specific amounts. **Pre-screen: likely eligible** for a university-business consortium in Poland.\n\n**2. Digital Europe — Advanced Digital Skills** [source:DEP-SKILLS]  \nDirectly targets specialised education and training in AI and other advanced digital technologies. Consortiums are usually required, and both universities and businesses are eligible. Poland is eligible. Funding is call-specific; you'll need to check the current Digital Europe work programme for exact budget and deadline. **Pre-screen: likely eligible** for a university-business consortium in Poland.\n\n## Key next steps\n\n- **Erasmus+ Alliances**: Verify the annual call deadline and multi-country partnership composition rules in the current Erasmus+ call guide. The programme requires broad multi-country partnerships, so confirm your consortium meets that threshold.\n- **Digital Europe**: Check the current Digital Europe work programme for active calls on advanced digital skills; deadlines and budgets are call-specific.\n- Both programmes require you to verify the official call documents for final eligibility, co-funding rates, and specific consortium composition rules.\n\nWould you like me to search for more specific information about either programme, or explore other funding streams?",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "ERASMUS-ALLIANCES",
+        "DEP-SKILLS",
+        "MSCA-DN",
+        "EUROSTARS"
+      ],
+      "citationIds": [
+        "ERASMUS-ALLIANCES",
+        "DEP-SKILLS"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 9592,
+      "generationUsage": {
+        "inputTokens": 7037,
+        "inputTokenDetails": {
+          "noCacheTokens": 7037,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 669,
+        "outputTokenDetails": {},
+        "totalTokens": 7706
+      },
+      "judgeUsage": {
+        "inputTokens": 1007,
+        "inputTokenDetails": {
+          "noCacheTokens": 1007,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 62,
+        "outputTokenDetails": {},
+        "totalTokens": 1069
+      }
+    },
+    {
+      "id": "circular-sme",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims (LIFE up to 60% co-funding, Innovation Fund up to 60%, eligibility, annual/periodic deadlines, regional variation for ERDF) are directly supported by evidence, and appropriate caveats about verification are included.",
+      "answer": "## Recommendation\n\nA Dutch SME piloting reusable packaging for waste reduction should prioritise investigating:\n\n**1. LIFE — Circular Economy and Quality of Life [source:LIFE-CIRCULAR]**  \nThis is the strongest match. LIFE funds demonstration and implementation projects for circular economy solutions and waste reduction [source:LIFE-CIRCULAR]. A Dutch SME is likely eligible [source:LIFE-CIRCULAR], and the programme commonly co-funds up to 60% of project costs [source:LIFE-CIRCULAR]. The SME should verify the current annual call package and deadlines on the CINEA website, as these are set annually [source:LIFE-CIRCULAR].\n\n**2. EU Innovation Fund [source:INNOVATION-FUND]**  \nIf the reusable packaging process involves innovative low-carbon or decarbonisation technology, this fund supports commercial demonstration of net-zero innovations [source:INNOVATION-FUND]. It may fund up to 60% of relevant costs [source:INNOVATION-FUND], though it typically targets larger-scale industrial projects.\n\n**3. European Regional Development Fund — Innovation and Digital Transition [source:ERDF-INNOVATION]**  \nRegional funding through the Netherlands' managing authority could support SME competitiveness and innovation [source:ERDF-INNOVATION]. Rules and deadlines vary by region, so the SME should contact its regional programme administrator.\n\n**Key next steps:**\n- Check CINEA's LIFE portal for the current circular economy call package and deadline\n- Confirm the project's fit with LIFE's demonstration and implementation criteria\n- Verify co-funding availability and project budget requirements on the official call documents",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "LIFE-CIRCULAR",
+        "SMP-COSME",
+        "ERDF-INNOVATION",
+        "INNOVATION-FUND",
+        "EUROSTARS"
+      ],
+      "citationIds": [
+        "LIFE-CIRCULAR",
+        "LIFE-CIRCULAR",
+        "LIFE-CIRCULAR",
+        "LIFE-CIRCULAR",
+        "LIFE-CIRCULAR",
+        "INNOVATION-FUND",
+        "INNOVATION-FUND",
+        "INNOVATION-FUND",
+        "ERDF-INNOVATION",
+        "ERDF-INNOVATION"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 10349,
+      "generationUsage": {
+        "inputTokens": 7304,
+        "inputTokenDetails": {
+          "noCacheTokens": 7304,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 636,
+        "outputTokenDetails": {},
+        "totalTokens": 7940
+      },
+      "judgeUsage": {
+        "inputTokens": 1193,
+        "inputTokenDetails": {
+          "noCacheTokens": 1193,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 81,
+        "outputTokenDetails": {},
+        "totalTokens": 1274
+      }
+    },
+    {
+      "id": "postdoc-mobility",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims about MSCA-PF (mobility support, unit-cost budget structure, annual deadline, joint applicant-host application, and eligibility for EU Member State hosts) are directly supported by the evidence provided, with appropriate caveats about verification needs.",
+      "answer": "## Best match for you\n\n**Marie Skłodowska-Curie Actions — Postdoctoral Fellowships** [source:MSCA-PF] is the primary EU funding scheme for your profile. It supports researchers' mobility, advanced training and career development through an individual fellowship hosted by an eligible organisation.\n\n### Pre-screen result\nYour profile as an individual postdoctoral researcher with a university host in Italy appears **likely eligible** [source:MSCA-PF]. Italy is an EU Member State, and the scheme accepts individual applicants with host organisations.\n\n### Key details\n- **Applicant**: You apply jointly with your host university [source:MSCA-PF]\n- **Budget**: Unit-cost fellowship covering researcher and institutional contributions [source:MSCA-PF]\n- **Deadline**: Annual MSCA Postdoctoral Fellowships deadline [source:MSCA-PF]\n- **Mobility & host rules apply**: The scheme has specific requirements on researcher experience, mobility history, and host-location eligibility that you'll need to verify [source:MSCA-PF]\n\n### Next steps\n1. Check the official MSCA Postdoctoral Fellowships call document for the current deadline and specific mobility/host-location rules\n2. Confirm your host university's eligibility and willingness to co-host\n3. Review the work programme for unit-cost rates and any career-stage requirements\n\nVisit the official source: https://marie-sklodowska-curie-actions.ec.europa.eu/actions/postdoctoral-fellowships",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "MSCA-PF",
+        "EIC-ACC-OPEN",
+        "EIC-ACC-CHALLENGES"
+      ],
+      "citationIds": [
+        "MSCA-PF",
+        "MSCA-PF",
+        "MSCA-PF",
+        "MSCA-PF",
+        "MSCA-PF",
+        "MSCA-PF"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 9691,
+      "generationUsage": {
+        "inputTokens": 6360,
+        "inputTokenDetails": {
+          "noCacheTokens": 6360,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 595,
+        "outputTokenDetails": {},
+        "totalTokens": 6955
+      },
+      "judgeUsage": {
+        "inputTokens": 945,
+        "inputTokenDetails": {
+          "noCacheTokens": 945,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 83,
+        "outputTokenDetails": {},
+        "totalTokens": 1028
+      }
+    },
+    {
+      "id": "sme-international-rd",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims about Eurostars (market-oriented R&D, SME-led, international consortium requirements, country-specific co-funding, call frequency) are directly supported by the evidence, and appropriate caveats about variable rates and call verification are included.",
+      "answer": "## Best match: **Eurostars** [source:EUROSTARS]\n\n**Why it fits:**\n- **Market-oriented R&D:** Eurostars explicitly supports \"market-oriented R&D\" and aims to \"bring products to market\" [source:EUROSTARS]\n- **SME-led:** Designed for innovative SMEs leading international collaborative projects [source:EUROSTARS]\n- **Two-year timeline:** Aligns with typical product development cycles\n- **Both countries eligible:** Pre-screen shows both Romanian and Spanish SMEs are likely eligible [source:EUROSTARS]\n- **International consortium:** Requires at least two independent entities from at least two Eurostars countries—your two SMEs meet this [source:EUROSTARS]\n\n**Key caveats:**\n- **Funding varies by country:** Co-funding rates and budget caps are country- and organisation-specific; national rules apply to each partner [source:EUROSTARS]\n- **Consortium required:** Both SMEs must formally partner; at least one leads the project [source:EUROSTARS]\n- **Call frequency:** Usually two international calls per year—verify the current call schedule [source:EUROSTARS]\n\n**Secondary option:** [source:ERDF-INNOVATION] European Regional Development Fund (ERDF) offers regional innovation funding for SMEs, but access depends on the specific region and managing authority in Romania and Spain; deadlines and budgets vary by region.\n\n**Next steps:**\n1. Check the current Eurostars call schedule and deadlines at https://www.eurekanetwork.org/programmes-and-calls/eurostars/\n2. Confirm national funding rates and caps for Romania and Spain with your national Eurostars contact points\n3. Verify the official call document for consortium and eligibility rules",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "EUROSTARS",
+        "ERDF-INNOVATION",
+        "SMP-COSME",
+        "EIC-PATH-OPEN",
+        "DEP-EDIH"
+      ],
+      "citationIds": [
+        "EUROSTARS",
+        "EUROSTARS",
+        "EUROSTARS",
+        "EUROSTARS",
+        "EUROSTARS",
+        "EUROSTARS",
+        "EUROSTARS",
+        "EUROSTARS",
+        "ERDF-INNOVATION"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 9793,
+      "generationUsage": {
+        "inputTokens": 7677,
+        "inputTokenDetails": {
+          "noCacheTokens": 7677,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 766,
+        "outputTokenDetails": {},
+        "totalTokens": 8443
+      },
+      "judgeUsage": {
+        "inputTokens": 1237,
+        "inputTokenDetails": {
+          "noCacheTokens": 1237,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 83,
+        "outputTokenDetails": {},
+        "totalTokens": 1320
+      }
+    },
+    {
+      "id": "single-applicant-pathfinder",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "All factual funding claims are directly supported by evidence: EIC Pathfinder Open requires a consortium of at least three independent entities (stated in EIC-PATH-OPEN countryNotes), EIC Accelerator Open supports single SMEs (stated in EIC-ACC-OPEN countryNotes), and the answer appropriately caveats that consortium rules may vary by call year.",
+      "answer": "**No, a Romanian SME cannot apply alone to EIC Pathfinder Open** [source:EIC-PATH-OPEN].\n\nThe pre-screen shows that while SMEs are eligible applicant types and Romania qualifies geographically, **the call requires a consortium**. According to the snapshot, EIC Pathfinder Open normally requires \"a consortium of at least three independent entities from different eligible countries\" [source:EIC-PATH-OPEN].\n\n**What to verify:** Consult the current EIC work programme on the official EIC website, as consortium rules may vary by specific call year or challenge focus.\n\n**Alternative:** If you're looking for an EIC opportunity where an SME can apply alone, the [EIC Accelerator Open](source:EIC-ACC-OPEN) supports single startups and SMEs without requiring partners.",
+      "toolNames": [
+        "searchCalls",
+        "checkEligibility"
+      ],
+      "retrievedIds": [
+        "EIC-PATH-OPEN",
+        "EIC-PATH-CHALLENGES",
+        "EIC-ACC-OPEN",
+        "EIC-TRANSITION"
+      ],
+      "citationIds": [
+        "EIC-PATH-OPEN",
+        "EIC-PATH-OPEN"
+      ],
+      "sawNoMatch": false,
+      "latencyMs": 6877,
+      "generationUsage": {
+        "inputTokens": 6756,
+        "inputTokenDetails": {
+          "noCacheTokens": 6756,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 420,
+        "outputTokenDetails": {},
+        "totalTokens": 7176
+      },
+      "judgeUsage": {
+        "inputTokens": 877,
+        "inputTokenDetails": {
+          "noCacheTokens": 877,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 109,
+        "outputTokenDetails": {},
+        "totalTokens": 986
+      }
+    },
+    {
+      "id": "no-match-consumer",
+      "score": 1,
+      "tools": true,
+      "retrieval": true,
+      "citations": true,
+      "faithfulness": 1,
+      "note": "The answer makes no specific factual funding claims about dates, budgets, eligibility, or programmes that could be verified against evidence.",
+      "answer": "There is no matching call in this snapshot for purchasing a personal holiday home in Canada.\n\nEU funding programmes in this snapshot are designed to support research, innovation, business development, and public-interest projects—not personal property purchases. A holiday home acquisition would fall outside the scope of EU grant funding.\n\nIf you're looking for EU funding for a different purpose—such as a research project, business expansion, or innovation initiative—I'd be happy to help search for relevant opportunities.",
+      "toolNames": [
+        "searchCalls"
+      ],
+      "retrievedIds": [],
+      "citationIds": [],
+      "sawNoMatch": true,
+      "latencyMs": 4698,
+      "generationUsage": {
+        "inputTokens": 2871,
+        "inputTokenDetails": {
+          "noCacheTokens": 2871,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 174,
+        "outputTokenDetails": {},
+        "totalTokens": 3045
+      },
+      "judgeUsage": {
+        "inputTokens": 205,
+        "inputTokenDetails": {
+          "noCacheTokens": 205,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+        },
+        "outputTokens": 52,
+        "outputTokenDetails": {},
+        "totalTokens": 257
+      }
+    }
+  ]
+}

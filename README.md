@@ -1,6 +1,6 @@
 # Grant Scout
 
-**EU funding answers with a visible evidence trail.** Grant Scout is a deliberately small Next.js agent demo: it searches a curated 30-record funding snapshot, runs deterministic eligibility checks, streams its tool activity, and cites the official source behind every funding claim.
+**EU funding answers with a visible evidence trail.** Grant Scout is a deliberately small Next.js agent demo: it searches a curated 30-record funding snapshot, runs deterministic eligibility checks, streams its tool activity, and is evaluated for citations to retrieved official sources.
 
 > **Live demo:** deployment pending. This repository is an illustrative portfolio project, not a live funding catalogue or funding advice.
 
@@ -85,7 +85,7 @@ npm run eval        # live 15-case behavioral evaluation
 npm run eval -- --write-readme
 ```
 
-Tests: `npm test` (11 unit tests) · `npm run eval` (15-case behavioural eval, historical 97.5% on 2026-08-30; not run in CI without provider keys)
+Tests: `npm test` (48 offline tests) · `npm run eval` (15-case credentialed behavioural evaluation; see limitations below)
 
 ## Evaluation method
 
@@ -96,10 +96,10 @@ Each golden case exercises the real agent and scores four independent properties
 - **Citation validity (20%)** — answer citations exist and are a subset of retrieved IDs.
 - **Faithfulness (30%)** — a separate low-temperature LLM judge checks every factual funding claim against the retrieved structured evidence.
 
-The overall gate defaults to 75%. `evals/results/latest.json` is generated locally and retained as a CI artifact; the main-branch evaluation workflow refreshes this table. Fork pull requests never receive model secrets.
+The weighted gate defaults to 75%, and any required-tool, retrieval or citation failure now fails the run regardless of the average. The workflow is manually dispatched, requires both provider keys and uploads a result artifact. It never rewrites this README automatically. Fork pull requests never receive model secrets.
 
 <!-- EVAL_RESULTS_START -->
-_Last credentialed run: 2026-08-30T08:28:17.807Z_
+_Last credentialed run: 2026-09-13T10:46:18.758Z; clean commit `8fd08a1d3fa4f42416b93f1b2a7e5c10edc0c79b`._
 
 | Case | Score | Tools | Retrieval | Citations | Faithfulness |
 |---|---:|:---:|:---:|:---:|---:|
@@ -109,17 +109,20 @@ _Last credentialed run: 2026-08-30T08:28:17.807Z_
 | uk-horizon-university | 98.5% | ✓ | ✓ | ✓ | 95% |
 | regional-policy | 98.5% | ✓ | ✓ | ✓ | 95% |
 | film-distribution | 100.0% | ✓ | ✓ | ✓ | 100% |
-| health-data | 98.5% | ✓ | ✓ | ✓ | 95% |
+| health-data | 100.0% | ✓ | ✓ | ✓ | 100% |
 | transport-infrastructure | 100.0% | ✓ | ✓ | ✓ | 100% |
 | net-zero-factory | 75.0% | ✗ | ✓ | ✓ | 100% |
-| advanced-ai-skills | 98.5% | ✓ | ✓ | ✓ | 95% |
-| circular-sme | 98.5% | ✓ | ✓ | ✓ | 95% |
+| advanced-ai-skills | 100.0% | ✓ | ✓ | ✓ | 100% |
+| circular-sme | 100.0% | ✓ | ✓ | ✓ | 100% |
 | postdoc-mobility | 100.0% | ✓ | ✓ | ✓ | 100% |
-| sme-international-rd | 98.5% | ✓ | ✓ | ✓ | 95% |
+| sme-international-rd | 100.0% | ✓ | ✓ | ✓ | 100% |
 | single-applicant-pathfinder | 100.0% | ✓ | ✓ | ✓ | 100% |
 | no-match-consumer | 100.0% | ✓ | ✓ | ✓ | 100% |
-| **Overall** | **97.5%** |  |  |  |  |
+| **Overall** | **97.9%** |  |  |  |  |
 <!-- EVAL_RESULTS_END -->
+
+This is **not a clean behavioral pass**: `net-zero-factory` omitted the required eligibility tool. The previous weighted-only gate exited successfully despite that failure. The subsequent control fix forces retrieval and an eligibility pre-screen, preserves unknown applicant facts, and rejects checks for records not retrieved in that request. Offline regression tests cover these controls; a new provider evaluation of this fix has **not** been run. The [immutable result artifact](docs/evaluations/2026-09-13-8fd08a1.json) records models, hashes, per-case timing, token usage and traces. Total billing cost is unknown.
+
 
 ## Corpus methodology and limits
 
@@ -160,11 +163,11 @@ Do not grant the public service account access to the existing application datab
 ## CI
 
 - `ci.yml` runs typecheck, lint, unit tests, and a production build without provider credentials on pushes and pull requests.
-- `eval.yml` runs only after a push to `main`, receives repository secrets, writes the score table above, uploads the machine-readable result, and commits a `[skip ci]` README refresh.
+- `eval.yml` is a manual credentialed run. Missing keys fail the job; results are uploaded as artifacts. Unit-test CI does not imply behavioral success.
 
 ## Author
 
-**Vasile Bogdan Godja** — founder-operator of Salt & Standard, the currently live automation agency. EuFund and PrimarIA are earlier case studies, not live services.
+**Vasile Bogdan Godja** — applied AI engineer and founder-operator of Salt & Standard, a hospitality standards consultancy. EuFund and PrimărIA are portfolio case studies; this repository does not establish customer adoption or business outcomes.
 
 ## License
 
@@ -177,8 +180,7 @@ query embeddings. It requires both provider keys and incurs provider usage. The
 GitHub workflow is manually dispatched and **fails** if either key is missing;
 a successful unit-test workflow is not a successful behavioral evaluation.
 Results record source commit, dirty-tree status, corpus/vector/case hashes, model
-identifiers, per-case latency, generation/judge token usage and full tool/citation
-traces. Total billing cost is not inferred from incomplete token accounting.
+identifiers, per-case latency, generation/judge token usage, tool names, retrieved record IDs and citation IDs. Total billing cost is not inferred from incomplete token accounting.
 
 The workflow uploads results as an artifact and does not silently rewrite the
 README. Historical results remain historical until a new artifact is reviewed.
