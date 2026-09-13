@@ -169,3 +169,16 @@ Do not grant the public service account access to the existing application datab
 ## License
 
 [MIT](LICENSE)
+
+## Reproducing a credentialed evaluation
+
+`npm run eval` runs the 15 cases with real Anthropic generation/judging and OpenAI
+query embeddings. It requires both provider keys and incurs provider usage. The
+GitHub workflow is manually dispatched and **fails** if either key is missing;
+a successful unit-test workflow is not a successful behavioral evaluation.
+Results record source commit, dirty-tree status, corpus/vector/case hashes, model
+identifiers, per-case latency, generation/judge token usage and full tool/citation
+traces. Total billing cost is not inferred from incomplete token accounting.
+
+The workflow uploads results as an artifact and does not silently rewrite the
+README. Historical results remain historical until a new artifact is reviewed.

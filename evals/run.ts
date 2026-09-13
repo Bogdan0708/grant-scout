@@ -1,5 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { anthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
 import { z } from "zod";
@@ -28,6 +30,9 @@ type EvalResult = {
   retrievedIds: string[];
   citationIds: string[];
   sawNoMatch: boolean;
+  latencyMs: number;
+  generationUsage: unknown;
+  judgeUsage: unknown;
 };
 
 const root = resolve(import.meta.dirname, "..");
@@ -106,10 +111,11 @@ async function judgeFaithfulness(answer: string, retrievedIds: Set<string>) {
     maxRetries: 1,
   });
 
-  return parseJudge(result.text);
+  return { ...parseJudge(result.text), usage: result.totalUsage };
 }
 
 async function runCase(evalCase: EvalCase): Promise<EvalResult> {
+  const startedAt = performance.now();
   const generated = await generateFundingAnswer(evalCase.prompt);
   const trace = collectTrace(generated);
   const citations = citationIds(generated.text);
@@ -136,9 +142,17 @@ async function runCase(evalCase: EvalCase): Promise<EvalResult> {
     retrievedIds: [...trace.retrievedIds],
     citationIds: citations,
     sawNoMatch: trace.sawNoMatch,
+    latencyMs: Math.round(performance.now() - startedAt),
+    generationUsage: generated.totalUsage,
+    judgeUsage: judge.usage,
   };
 }
 
+const commit = process.env.EVAL_COMMIT ?? execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
+const workingTreeDirty = execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim().length > 0;
+const corpusSha256 = createHash("sha256").update(await readFile(resolve(root, "data/calls.json"))).digest("hex");
+const vectorsSha256 = createHash("sha256").update(await readFile(resolve(root, "data/vectors.json"))).digest("hex");
+const casesSha256 = createHash("sha256").update(await readFile(resolve(root, "evals/cases.json"))).digest("hex");
 const results: EvalResult[] = [];
 for (const evalCase of cases) {
   process.stdout.write(`Running ${evalCase.id}... `);
@@ -157,7 +171,7 @@ const table = [
 ].join("\n");
 
 await mkdir(resolve(root, "evals/results"), { recursive: true });
-await writeFile(resolve(root, "evals/results/latest.json"), `${JSON.stringify({ timestamp, overall, results }, null, 2)}\n`);
+await writeFile(resolve(root, "evals/results/latest.json"), `${JSON.stringify({ timestamp, commit, workingTreeDirty, corpusSha256, vectorsSha256, casesSha256, models: { generator: process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5", judge: process.env.EVAL_JUDGE_MODEL ?? process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5", embeddings: process.env.EMBEDDING_MODEL ?? "text-embedding-3-small" }, costUsd: null, costNote: "Usage is recorded per case; provider billing and embedding usage are not fully captured, so total cost is not claimed.", overall, results }, null, 2)}\n`);
 
 if (writeReadme) {
   const readmePath = resolve(root, "README.md");
