@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Grant Scout — EU funding evidence explorer",
   description:
-    "A small agentic RAG demo that searches a curated EU funding snapshot, checks eligibility, and cites every funding claim.",
+    "A small agentic RAG demo that searches a curated EU funding snapshot, runs eligibility pre-screens, and presents citations to retrieved sources.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

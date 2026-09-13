@@ -7,6 +7,7 @@ import { generateText } from "ai";
 import { z } from "zod";
 import { calls } from "../lib/corpus";
 import { generateFundingAnswer } from "../lib/agent";
+import { evaluateControls, passesEvaluation } from "./scoring";
 
 const caseSchema = z.object({
   id: z.string(),
@@ -27,6 +28,7 @@ type EvalResult = {
   note: string;
   answer: string;
   toolNames: string[];
+  successfulToolNames: string[];
   retrievedIds: string[];
   citationIds: string[];
   sawNoMatch: boolean;
@@ -36,49 +38,24 @@ type EvalResult = {
 };
 
 const root = resolve(import.meta.dirname, "..");
-const cases = z.array(caseSchema).parse(JSON.parse(await readFile(resolve(root, "evals/cases.json"), "utf8")));
+const cases = z
+  .array(caseSchema)
+  .parse(JSON.parse(await readFile(resolve(root, "evals/cases.json"), "utf8")));
 const writeReadme = process.argv.includes("--write-readme");
 
 if (!process.env.ANTHROPIC_API_KEY || !process.env.OPENAI_API_KEY) {
-  throw new Error("ANTHROPIC_API_KEY and OPENAI_API_KEY are required for behavioral evals.");
-}
-
-function asRecord(value: unknown): Record<string, unknown> | null {
-  return value && typeof value === "object" ? value as Record<string, unknown> : null;
-}
-
-function collectTrace(result: Awaited<ReturnType<typeof generateFundingAnswer>>) {
-  const toolNames: string[] = [];
-  const retrievedIds = new Set<string>();
-  let sawNoMatch = false;
-
-  for (const step of result.steps) {
-    for (const call of step.toolCalls) toolNames.push(call.toolName);
-    for (const toolResult of step.toolResults) {
-      const record = asRecord(toolResult.output);
-      if (!record) continue;
-      if (record.noMatch === true) sawNoMatch = true;
-      if (Array.isArray(record.matches)) {
-        for (const match of record.matches) {
-          const item = asRecord(match);
-          if (typeof item?.id === "string") retrievedIds.add(item.id);
-        }
-      }
-    }
-  }
-
-  return { toolNames, retrievedIds, sawNoMatch };
-}
-
-function citationIds(text: string) {
-  return [...text.matchAll(/\[source:([A-Z0-9-]+)\]/g)].map((match) => match[1]);
+  throw new Error(
+    "ANTHROPIC_API_KEY and OPENAI_API_KEY are required for behavioral evals.",
+  );
 }
 
 function parseJudge(text: string): { score: number; reason: string } {
   const match = text.match(/\{[\s\S]*\}/);
   if (!match) return { score: 0, reason: "Judge returned invalid JSON" };
   try {
-    const parsed = z.object({ score: z.number().min(0).max(1), reason: z.string() }).parse(JSON.parse(match[0]));
+    const parsed = z
+      .object({ score: z.number().min(0).max(1), reason: z.string() })
+      .parse(JSON.parse(match[0]));
     return parsed;
   } catch {
     return { score: 0, reason: "Judge returned invalid JSON" };
@@ -98,8 +75,13 @@ async function judgeFaithfulness(answer: string, retrievedIds: Set<string>) {
     }));
 
   const result = await generateText({
-    model: anthropic(process.env.EVAL_JUDGE_MODEL ?? process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5"),
-    system: "You are a strict faithfulness evaluator. Use only the supplied evidence. Return JSON and no markdown.",
+    model: anthropic(
+      process.env.EVAL_JUDGE_MODEL ??
+        process.env.ANTHROPIC_MODEL ??
+        "claude-haiku-4-5",
+    ),
+    system:
+      "You are a strict faithfulness evaluator. Use only the supplied evidence. Return JSON and no markdown.",
     prompt: JSON.stringify({
       task: "Score whether every factual funding claim in the answer is supported by the evidence. A cautious caveat is good. Unsupported dates, budgets, eligibility, or programme claims are failures.",
       answer,
@@ -117,17 +99,14 @@ async function judgeFaithfulness(answer: string, retrievedIds: Set<string>) {
 async function runCase(evalCase: EvalCase): Promise<EvalResult> {
   const startedAt = performance.now();
   const generated = await generateFundingAnswer(evalCase.prompt);
-  const trace = collectTrace(generated);
-  const citations = citationIds(generated.text);
-  const toolsPass = evalCase.expectedTools.every((name) => trace.toolNames.includes(name));
-  const retrievalPass = evalCase.expectNoMatch
-    ? trace.sawNoMatch && trace.retrievedIds.size === 0
-    : evalCase.expectedAnyCallIds.some((id) => trace.retrievedIds.has(id));
-  const citationsPass = evalCase.expectNoMatch
-    ? citations.length === 0
-    : citations.length > 0 && citations.every((id) => trace.retrievedIds.has(id));
+  const { trace, citations, toolsPass, retrievalPass, citationsPass } =
+    evaluateControls(evalCase, generated.text, generated.steps);
   const judge = await judgeFaithfulness(generated.text, trace.retrievedIds);
-  const score = (Number(toolsPass) * 0.25) + (Number(retrievalPass) * 0.25) + (Number(citationsPass) * 0.2) + (judge.score * 0.3);
+  const score =
+    Number(toolsPass) * 0.25 +
+    Number(retrievalPass) * 0.25 +
+    Number(citationsPass) * 0.2 +
+    judge.score * 0.3;
 
   return {
     id: evalCase.id,
@@ -139,6 +118,7 @@ async function runCase(evalCase: EvalCase): Promise<EvalResult> {
     note: judge.reason,
     answer: generated.text,
     toolNames: trace.toolNames,
+    successfulToolNames: [...trace.successfulToolNames],
     retrievedIds: [...trace.retrievedIds],
     citationIds: citations,
     sawNoMatch: trace.sawNoMatch,
@@ -148,11 +128,26 @@ async function runCase(evalCase: EvalCase): Promise<EvalResult> {
   };
 }
 
-const commit = process.env.EVAL_COMMIT ?? execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
-const workingTreeDirty = execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], { cwd: root, encoding: "utf8" }).trim().length > 0;
-const corpusSha256 = createHash("sha256").update(await readFile(resolve(root, "data/calls.json"))).digest("hex");
-const vectorsSha256 = createHash("sha256").update(await readFile(resolve(root, "data/vectors.json"))).digest("hex");
-const casesSha256 = createHash("sha256").update(await readFile(resolve(root, "evals/cases.json"))).digest("hex");
+const commit =
+  process.env.EVAL_COMMIT ??
+  execFileSync("git", ["rev-parse", "HEAD"], {
+    cwd: root,
+    encoding: "utf8",
+  }).trim();
+const workingTreeDirty =
+  execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], {
+    cwd: root,
+    encoding: "utf8",
+  }).trim().length > 0;
+const corpusSha256 = createHash("sha256")
+  .update(await readFile(resolve(root, "data/calls.json")))
+  .digest("hex");
+const vectorsSha256 = createHash("sha256")
+  .update(await readFile(resolve(root, "data/vectors.json")))
+  .digest("hex");
+const casesSha256 = createHash("sha256")
+  .update(await readFile(resolve(root, "evals/cases.json")))
+  .digest("hex");
 const results: EvalResult[] = [];
 for (const evalCase of cases) {
   process.stdout.write(`Running ${evalCase.id}... `);
@@ -161,26 +156,44 @@ for (const evalCase of cases) {
   process.stdout.write(`${(result.score * 100).toFixed(1)}%\n`);
 }
 
-const overall = results.reduce((sum, result) => sum + result.score, 0) / results.length;
+const overall =
+  results.reduce((sum, result) => sum + result.score, 0) / results.length;
 const timestamp = new Date().toISOString();
 const table = [
   "| Case | Score | Tools | Retrieval | Citations | Faithfulness |",
   "|---|---:|:---:|:---:|:---:|---:|",
-  ...results.map((result) => `| ${result.id} | ${(result.score * 100).toFixed(1)}% | ${result.tools ? "✓" : "✗"} | ${result.retrieval ? "✓" : "✗"} | ${result.citations ? "✓" : "✗"} | ${(result.faithfulness * 100).toFixed(0)}% |`),
+  ...results.map(
+    (result) =>
+      `| ${result.id} | ${(result.score * 100).toFixed(1)}% | ${result.tools ? "✓" : "✗"} | ${result.retrieval ? "✓" : "✗"} | ${result.citations ? "✓" : "✗"} | ${(result.faithfulness * 100).toFixed(0)}% |`,
+  ),
   `| **Overall** | **${(overall * 100).toFixed(1)}%** |  |  |  |  |`,
 ].join("\n");
 
 await mkdir(resolve(root, "evals/results"), { recursive: true });
-await writeFile(resolve(root, "evals/results/latest.json"), `${JSON.stringify({ timestamp, commit, workingTreeDirty, corpusSha256, vectorsSha256, casesSha256, models: { generator: process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5", judge: process.env.EVAL_JUDGE_MODEL ?? process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5", embeddings: process.env.EMBEDDING_MODEL ?? "text-embedding-3-small" }, costUsd: null, costNote: "Usage is recorded per case; provider billing and embedding usage are not fully captured, so total cost is not claimed.", overall, results }, null, 2)}\n`);
+await writeFile(
+  resolve(root, "evals/results/latest.json"),
+  `${JSON.stringify({ timestamp, commit, workingTreeDirty, corpusSha256, vectorsSha256, casesSha256, models: { generator: process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5", judge: process.env.EVAL_JUDGE_MODEL ?? process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5", embeddings: process.env.EMBEDDING_MODEL ?? "text-embedding-3-small" }, costUsd: null, costNote: "Usage is recorded per case; provider billing and embedding usage are not fully captured, so total cost is not claimed.", overall, results }, null, 2)}\n`,
+);
 
 if (writeReadme) {
   const readmePath = resolve(root, "README.md");
   const readme = await readFile(readmePath, "utf8");
   const replacement = `<!-- EVAL_RESULTS_START -->\n_Last credentialed run: ${timestamp}_\n\n${table}\n<!-- EVAL_RESULTS_END -->`;
-  const updated = readme.replace(/<!-- EVAL_RESULTS_START -->[\s\S]*<!-- EVAL_RESULTS_END -->/, replacement);
-  if (updated === readme) throw new Error("README eval result markers were not found.");
+  const updated = readme.replace(
+    /<!-- EVAL_RESULTS_START -->[\s\S]*<!-- EVAL_RESULTS_END -->/,
+    replacement,
+  );
+  if (updated === readme)
+    throw new Error("README eval result markers were not found.");
   await writeFile(readmePath, updated, "utf8");
 }
 
 process.stdout.write(`\n${table}\n`);
-if (overall < Number(process.env.EVAL_MIN_SCORE ?? 0.75)) process.exitCode = 1;
+if (
+  !passesEvaluation(
+    overall,
+    results,
+    Number(process.env.EVAL_MIN_SCORE ?? 0.75),
+  )
+)
+  process.exitCode = 1;
